@@ -1,0 +1,35 @@
+.carrinho{
+  padding: 30px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.item{
+  width: 300px;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 5px;
+
+  img {
+    max-height: 200px;
+  }
+
+  h3 {
+    font-weight: 800;
+    font-size: 13px;
+  }
+
+  span {
+    display: block;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  
+  small {
+    color: #888
+  }
+}

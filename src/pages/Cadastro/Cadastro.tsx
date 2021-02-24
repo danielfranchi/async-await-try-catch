@@ -52,34 +52,33 @@ const Cadastro = () => {
   return(
     <div className='img'>
 
-      <Helmet>
-        <title>Empório da Cerveja</title>
-      </Helmet>
+    <Helmet>
+      <title>Empório da Cerveja</title>
+    </Helmet>
       
-      <div className='form'>
-        <div>
-
-          <p>Bem-vindo a loja oficial das maiores cervejarias do mundo. Antes de continuar</p>
-          <p> <strong>Você tem 18 anos ou mais?</strong> </p>
-          
-          <input type="text" placeholder='nome' ref={name} /> <br/>
-          <input type="email" placeholder='e-mail' ref={email} /> <br/>
-          <input type="password" placeholder='senha' ref={password} /><br/>
-          <input type="text" placeholder='idade' ref={age} /> <br/>
-          <button onClick={getCadastro}>Cadastrar</button>
-          
-          <span>{ verifica  && 'Proibido a venda de bebidas alcoólicas para menores de 18 anos'}</span>
-        </div>
+    <div className='form'>
+      <div>
+        <p>Bem-vindo a loja oficial das maiores cervejarias do mundo. Antes de continuar</p>
+        <p> <strong>Você tem 18 anos ou mais?</strong> </p>
+        
+        <input type="text" placeholder='nome' ref={name} /> <br/>
+        <input type="email" placeholder='e-mail' ref={email} /> <br/>
+        <input type="password" placeholder='senha' ref={password} /><br/>
+        <input type="text" placeholder='idade' ref={age} /> <br/>
+        <button onClick={getCadastro}>Cadastrar</button>
+        
+        <span>{ verifica  && 'Proibido a venda de bebidas alcoólicas para menores de 18 anos'}</span>
+      </div>
                
-        </div>
-          { 
-            estado ?
-            <Redirect to="/home" />
-            :
-            null
-          }
-        </div> 
-      )    
+      </div>
+        { 
+          estado ?
+          <Redirect to="/home" />
+          :
+          null
+        }
+      </div> 
+    )    
 }
 
 export default Cadastro;

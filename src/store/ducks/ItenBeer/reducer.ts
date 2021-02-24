@@ -17,10 +17,15 @@ function reducerItemBeer(state = initialStatePost, action: any) {
           {...item, qtd: 0}
         ))
 
-      return {
-        itensBerrs: novo
-      }
+        const tt  = novo.filter((thing, index, self) =>
+            index === self.findIndex((t) => (
+            t.id === thing.id
+          ))
+        )
 
+      return {
+        itensBerrs: tt
+      }
 
     case 'ADD_CART':
       console.log(`clicou no id: ${action.id}`)
@@ -45,6 +50,7 @@ function reducerItemBeer(state = initialStatePost, action: any) {
     }
 
   case 'CLEAR_CART':
+
     const cc = [...state.itensBerrs].map((item) => {
       item.qtd = 0
       return item

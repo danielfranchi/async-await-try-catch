@@ -9,16 +9,15 @@ import '../Header/Header.scss'
 import Logo from '../../images/logo-img.svg'
 import Logo1 from '../../images/logo.svg'
 import { BiCartAlt } from "react-icons/bi";
-
 import toast, { Toaster } from 'react-hot-toast'
 
 
 const Header = () => {
-  const price2 = useSelector((state: Beer) => state.itemBeer.itensBerrs.filter((item) => {
-    return item.qtd >= 0
-  }))
 
-  console.log(price2)
+  const price2 = useSelector((state: Beer) => state.itemBeer.itensBerrs.filter((item) => {
+      return item.qtd >= 0
+    })
+  )
 
   const price = price2.reduce((a, b) => {
     return a + (b.qtd * (Number(b.price.replace('R$ ', '').replace(',', '.'))))
@@ -35,12 +34,13 @@ const Header = () => {
     try {
       const request = await axios.get('http://localhost:4000/categories', {headers: headers})
       setProduto(request.data)
+
     } catch(erro) {
       if(erro.response.status === 404) {
-       toast.error('Erro 404')
+        toast.error('Erro 404')
+        }
       }
-    }
-}
+  }
   
   React.useEffect(() => {
     getHeader()
@@ -70,7 +70,7 @@ const Header = () => {
         </div>
       </header>
     </div>
-  );
+  )
 }
 
 export default Header;

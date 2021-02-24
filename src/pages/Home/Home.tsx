@@ -6,11 +6,9 @@ import Header from '../../Components/Header/Header'
 
 import { Provider } from 'react-redux'
 import { store } from '../../store/store'
-
-import '../Home/Home.scss'
-
 import toast, { Toaster } from 'react-hot-toast'
 
+import '../Home/Home.scss'
 
 
 const Home = () => {
@@ -29,7 +27,6 @@ const Home = () => {
   const headers = {
     'Authorization': `Bearer ${token}`
   }
-
 
   const getHome = async () => {
     try {
@@ -58,20 +55,16 @@ const Home = () => {
           <Header />
       </Provider>
       
-
-      
       <div className='beers-list'>
-
-      
-      {bebidas !== null && bebidas.map((item: Bebidas) => (
-        <div key={item.id} className='beer'>
-          <img src={item.image} alt={item.title} />
-          <h3>{item.description}</h3>
-          <span>{item.title}</span>
-          <small>{item.price}</small><br/>
-          <Link to={`carrinho/${item.id}`}>Comprar</Link>
-        </div>
-      ))} 
+        {bebidas !== null && bebidas.map((item: Bebidas) => (
+          <div key={item.id} className='beer'>
+            <img src={item.image} alt={item.title} />
+            <h3>{item.description}</h3>
+            <span>{item.title}</span>
+            <small>{item.price}</small><br/>
+            <Link to={`carrinho/${item.id}`}>Comprar</Link>
+          </div>
+        ))} 
       </div>
     </div>
   );

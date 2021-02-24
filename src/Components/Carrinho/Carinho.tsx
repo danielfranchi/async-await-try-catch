@@ -13,17 +13,16 @@ import { Redirect } from 'react-router-dom'
 
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Beer, ItemBeer } from '../../store/ducks/ItenBeer/types'
+import toast, { Toaster } from 'react-hot-toast'
 
 import '../../Components/Carrinho/Carrinho.scss'
 
-import toast, { Toaster } from 'react-hot-toast'
 
 
 const Carrinhos = () => {
 
   const [concluir, setConcluir] = React.useState<Boolean>(false)
   const [voltar, setVoltar] = React.useState<Boolean>(false)
-
 
   const concluido = () => {
     setConcluir(true)
@@ -33,20 +32,16 @@ const Carrinhos = () => {
   const home = () => {
     setVoltar(true)
     dispatch({type: 'CLEAR_CART'})
-
   }
 
   const dispatch = useDispatch()
 
-
-  const aa  = useSelector((state: Beer) => state.itemBeer.itensBerrs.filter((thing, index, self) =>
-      index === self.findIndex((t) => (
-        t.id === thing.id
-      ))
-  ).filter((item) =>{
+  const aa  = useSelector((state: Beer) => state.itemBeer.itensBerrs.filter((item) =>{
     return item.qtd >= 0
-  }
-))
+    }
+  ))
+
+  console.log(aa)
 
   const total  = aa.reduce((acc,cur) =>{
     return acc + cur.qtd
@@ -68,14 +63,14 @@ const Carrinhos = () => {
        toast.error('Erro 404')
       }
     }
-}
+  }
 
   React.useEffect(() => {
     getCompras() 
   }, [])
 
   return (
-    <div className='carrinho'>
+    <>
       <Helmet>
         <title>Comprar</title>
       </Helmet>
@@ -85,49 +80,55 @@ const Carrinhos = () => {
       <Provider store={store}>
         <Header />
       </Provider>
-
-      <div>
-        <button onClick={home}><strong>Voltar</strong></button>
-      </div>
-
-      <div>
-        <strong>Meu Carrinho </strong>
-        <button onClick={concluido}> <AiOutlineArrowRight /> </button>
-        <hr/>
-      </div>
-
-      {aa.map((item: ItemBeer , i:any) => (
-        <div className='item' key={i}>
-          <img src={item.image} alt={item.title}/>
-          <h3>{item.description}</h3>
-          <span>{item.title}</span>
-          <small>{item.price}</small>
-          <div>
-            <button onClick={() => dispatch({type: 'ADD_CART', id: item.id})}>+</button>
-              {item.qtd} 
-            <button onClick={() => dispatch({type: 'REMOVE_CART', id: item.id})}>-</button> 
-          </div>         
+   
+    
+      <div className='carrinho'>
+        <div>
+          <strong>Meu Carrinho </strong>
+          <button onClick={concluido}> <AiOutlineArrowRight /> </button>
+          <hr/>
         </div>
-        ))
-      }
 
-      { 
-        voltar ?
-        <Redirect to="/home" />
-        :
-        null
-      }
+        {aa.map((item: ItemBeer , i:any) => (
+          <div className='item' key={i}>
+            <img src={item.image} alt={item.title}/>
+            <h3>{item.description}</h3>
+            <span>{item.title}</span>
+            <small>{item.price}</small>
+            <div>
+              <button onClick={() => dispatch({type: 'ADD_CART', id: item.id})}>+</button>
+                {item.qtd} 
+              <button onClick={() => dispatch({type: 'REMOVE_CART', id: item.id})}>-</button> 
+            </div>         
+          </div>
+          ))
+        }
 
-      {      
-        concluir ?
-        <h1>Seu pedido foi finalizado</h1>
-        :
-        null
-      }
+        <div>
+          <button onClick={home}><strong>Continuar Comprando</strong></button>
+        </div>
 
-      <span>{total >= 0 && <p>total: {total}</p>}</span>
-      
+        <>
+          { 
+            voltar ?
+            <Redirect to="/home" />
+            :
+            null
+          }
+
+          {      
+            concluir ?
+            <h1>Seu pedido foi finalizado</h1>
+            :
+            null
+          }
+
+          <div>
+            <span>{total >= 0 && <p>total: {total}</p>}</span>
+          </div>
+        </>
     </div>
+    </>
   );
 }
 
